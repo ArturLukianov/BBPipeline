@@ -1,10 +1,12 @@
 <html>
     <head>
         <link href="style.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
          body,html{
              overflow: hidden;
          }
+
         </style>
     </head>
     <body>
@@ -16,8 +18,37 @@
 
         </ul>
         <div class="profile-edit">
-            <canvas id="profile-edit-canvas"></canvas>
+            <button class="add-node-button modalButton"><i class="fa fa-plus"></i></button>
+            <button class="save-button">Save</button>
+            <canvas id="profile-edit-canvas">
+            </canvas>
         </div>
+
+        <div id="newNodeModal" class="modal">
+
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Add node</h2>
+
+                <input type="text" placeholder="Search.." id="searchBar">
+                <br>
+                <br>
+                <div id="nodePalette" class="noselect">
+                    <table id="nodePaletteContent">
+                    </table>
+                </div>
+                <!-- <button id="addButton">Add</button> -->
+            </div>
+
+        </div>
+
+        <div class="contextMenu">
+            <a href="#"><i class="fa fa-trash"></i> Delete</a>
+        </div>
+
+
+        <script src="nodes.js"></script>
+        <script src="modal.js"></script>
         <script src="profile-edit.js"></script>
     </body>
 </html>

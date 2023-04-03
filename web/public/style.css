@@ -92,11 +92,158 @@ button:hover {
 }
 
 .profile-edit {
-  height: 100%;
+  height: calc(100% - 47px); /* TODO: fix scaling */
 }
 
 canvas {
   /* height: 100%; */
   /* width: 100%; */
   margin: 0;
+}
+
+.save-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.add-node-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #04aa6d;
+}
+
+.add-node-button:hover {
+  background-color: #049a5d;
+}
+
+.delete-zone {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: #909090;
+  color: black;
+  cursor: default;
+}
+
+.delete-zone:hover {
+  background-color: #707070;
+  cursor: default;
+}
+
+.profile-edit {
+  position: relative;
+}
+
+
+/* Modal */
+
+/* TODO: smooth modal animation */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 20px auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+select {
+  background-color: #046daa; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+input {
+  padding: 8px 8px;
+  width: 100%;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#previewCanvas {
+  width: 600px;
+  height: 400px;
+  margin: 10px auto;
+  display: block;
+}
+
+#nodePalette {
+margin: 10px;
+}
+
+#nodePaletteContent {
+border-spacing: 0 3px;
+border-collapse: separate;
+}
+
+#nodePalette tr {
+background-color: #e0e0e0;
+}
+
+#nodePalette tr:hover {
+background-color: #d0d0d0;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.contextMenu {
+background-color: #900000;
+border-radius: 15px;
+display: none;
+position: absolute;
+}
+
+.contextMenu a {
+margin: 10px 10px;
+text-decoration: none;
+color: white;
 }

@@ -13,25 +13,60 @@
     </ul>
     <div class="content">
       <div class="align-right mb-5">
-        <button><i class="fa fa-plus"></i></button>
+        <button id="newNodeButton" class="modalButton"><i class="fa fa-plus"></i></button>
       </div>
 
-      <table>
-        <tr>
-          <th>Node</th>
-          <th>Description</th>
-          <th>Actions</th>
-        </tr>
-        <tr>
-          <td>Scope</td>
-          <td>List of domains, ip addresses or wildcards in target scope</td>
-          <td>
-            <a href="#"><i class="fa fa-trash" style="color: red"></i></a>
-            <a href="#"><i class="fa fa-pencil" style="color: blue"></i></a>
-          </td>
-        </tr>
+      <table id="nodesTable">
+        <thead>
+          <tr>
+            <th>Node</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
       </table>
+    </div>
+
+    <div id="newNodeModal" class="modal">
+
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add custom node</h2>
+
+        <!--
+             <label for="typeSelect">Node type:</label>
+             <select id="typeSelect">
+             <option>Terminal command</option>
+             </select>
+        -->
+
+        <label for="nodeName">Node name:</label>
+        <input type="text" placeholder="New node" id="nodeName">
+        <br>
+        <br>
+        <label for="nodeCommand">Command:</label>
+        <input type="text" placeholder="cat <filename>" id="nodeCommand">
+        <!--
+             <h3>Inputs:</h3>
+             <div id="inputs">
+             </div>
+
+             <h3>Outputs:</h3>
+             <div id="outputs">
+             </div> -->
+
+        <h3>Preview:</h3>
+        <canvas id="previewCanvas"></canvas>
+
+        <button id="saveButton">Save</button>
+      </div>
 
     </div>
+
+    <script src="./modal.js"></script>
+    <script src="./nodes.js"></script>
+    <script src="./node-edit.js"></script>
   </body>
 </html>
