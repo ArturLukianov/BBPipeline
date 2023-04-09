@@ -4,9 +4,9 @@ import sys
 from flask import Flask, send_from_directory, redirect, jsonify, request
 
 sys.path.append('..')
-from core.node import Node
+from core.node import Node, CustomNode
 from core.profile import Profile
-from core.helpers import save_node, load_nodes, save_profile, load_profile
+from core.helpers import save_node, load_nodes, save_profile, load_profile, node_from_dict
 
 
 loaded_nodes = load_nodes()
@@ -31,10 +31,7 @@ def nodes():
         data = request.json
         if not data.get('node'): return jsonify({'error': 'no node'})
         node_data = data.get('node')
-        node = Node(node_data['name'],
-                    node_data['command'],
-                    node_data['inputs'],
-                    node_data['outputs'])
+        node = node_from_dict(node_data)
 
         save_node(node)
         loaded_nodes = load_nodes()
@@ -49,10 +46,29 @@ def profile():
     else:
         data = request.json
         nodes = [
-            Node(node_data['name'], node_data['command'], node_data['inputs'],
-                 node_data['outputs'], node_data['position'])
+            node_from_dict(node_data)
             for node_data in data['nodes']
         ]
         loaded_profile = Profile(nodes)
         save_profile(loaded_profile)
+        return jsonify({'result': 'ok'})
+
+
+@app.route('/api/scan/run')
+def run_scan():
+    profile.run()
+    return jsonify({'status': 'started'})
+
+@app.route('/api/scan/status')
+def status_scan():
+    return jsonify({'status': 'not running'})
+
+@app.route('/api/scan/scope', methods=['POST', 'GET'])
+def scan_scope():
+    if request.method == 'GET':
+        return jsonify({'scope': profile.get_scope()})
+    else:
+        scope = request.json.get('scope')
+        if not scope: return jsonify({'result': 'no scope given'})
+        profile.set_scope(scope)
         return jsonify({'result': 'ok'})

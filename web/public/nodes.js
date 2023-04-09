@@ -151,10 +151,11 @@ class Socket {
 
 /* Pipeline node */
 class Node {
-  constructor(x, y, name, inputs = null, outputs = null, command = null, id = null) {
+  constructor(x, y, type, name, inputs = null, outputs = null, command = null, id = null) {
     this.id = id ? id : uuidv4();
     this.x = x;
     this.y = y;
+    this.type = type
     this.command = command
     this.staleX = x;
     this.staleY = y;
@@ -245,6 +246,7 @@ class Node {
   toDict() {
     return {
       'id': this.id,
+      'type': this.type,
       'command': this.command,
       'name': this.name,
       'inputs': this.inputSockets.map(socket => socket.toDict()),

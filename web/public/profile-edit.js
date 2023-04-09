@@ -26,6 +26,7 @@ function escapeHtml(unsafe)
     nodes = [];
     for (let node of data['nodes']) {
       nodes.push(new Node(node['position'][0], node['position'][1],
+                          node['type'],
                           node['name'], node['inputs'], node['outputs'],
                           node['id'], node['command']))
     }
@@ -34,6 +35,7 @@ function escapeHtml(unsafe)
     for (let node of nodes) {
       for (let output of node.outputs) {
         let outputSocket = null;
+        if (output.connections === undefined) continue
         for (let os of node.outputSockets)
           if (os.name == output.name) outputSocket = os
 
@@ -73,9 +75,11 @@ function escapeHtml(unsafe)
     for (let node of nodeBank) {
       let row = nodePaletteContent.insertRow();
       row.insertCell(0).innerHTML = node['name']
-      row.insertCell(1).innerHTML = escapeHtml(node['command'])
+      row.insertCell(1).innerHTML = escapeHtml(node['description'])
       row.addEventListener('click', function() {
-        nodes.push(new Node(canvas.width / 2 - 150, canvas.height / 2 - 150, node['name'], node['inputs'], node['outputs']))
+        nodes.push(new Node(canvas.width / 2 - 150, canvas.height / 2 - 150,
+                            node['type'],
+                            node['name'], node['inputs'], node['outputs']))
         modal.style.display = 'none';
         draw();
       })

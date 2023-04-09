@@ -35,8 +35,11 @@ function escapeHtml(unsafe)
       for (let node of nodes) {
         let row = tbody.insertRow();
         row.insertCell(0).innerHTML = node['name']
-        row.insertCell(1).innerHTML = escapeHtml(node['command'])
+        row.insertCell(1).innerHTML = escapeHtml(node['description'])
+        if (node['type'] == 'custom')
         row.insertCell(2).innerHTML = '<td> <a href="#"><i class="fa fa-trash" style="color: red"></i></a> <a href="#"><i class="fa fa-pencil" style="color: blue"></i></a> </td>'
+else
+        row.insertCell(2).innerHTML = ''
       }
     })
   }

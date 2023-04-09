@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+         body,html{
+             overflow: hidden;
+         }
+
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="nodes.html">Nodes</a></li>
+            <li><a href="scans.html" class="active">Scans</a></li>
+
+        </ul>
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks active" onclick="openTab(event, 'scan')">Scan</button>
+            <button class="tablinks" onclick="openTab(event, 'scope')">Scope</button>
+            <button class="tablinks" onclick="openTab(event, 'profile')">Profile</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="scan" class="tabcontent" style="display: block">
+            <h3 id="status">Status: not running</h3>
+            <button style="margin-top: 20px;" class="green-button" id="runScan">Run</button>
+        </div>
+
+        <div id="scope" class="tabcontent">
+            <h3>Scope:</h3>
+            <textarea style="height: 300px"></textarea>
+            <button style="margin-top: 20px;" id="saveScope">Save</button>
+        </div>
+
+        <div id="profile" class="profile-preview tabcontent">
+            <canvas id="profile-preview-canvas">
+            </canvas>
+        </div>
+        <script src="nodes.js"></script>
+        <script src="tabs.js"></script>
+        <script src="scans.js"></script>
+    </body>
+</html>
