@@ -2,6 +2,7 @@
 
 from .node import Node, CustomNode
 from .nodes.scope import Scope
+from .nodes.result import Result
 from .profile import Profile
 import json
 import os
@@ -9,7 +10,7 @@ import os
 
 ## Nodes
 
-builtin_nodes = [Scope()]
+builtin_nodes = [Scope(), Result()]
 node_types = dict()
 
 
@@ -50,4 +51,5 @@ def load_profile() -> Profile:
         data = json.load(f)
         profile = Profile([node_from_dict(node_data)
                            for node_data in data['nodes']])
+        profile.wire_connections()
     return profile

@@ -24,7 +24,7 @@ function escapeHtml(unsafe)
   let outputs = [];
 
 
-  let node = new Node(600 / 2 - 300 / 2, 10, 'New node', null, []);
+  let node = new Node(600 / 2 - 300 / 2, 10, 'custom', 'New node', null, []);
 
   canvas.width = 600;
   canvas.height = 200;
@@ -54,7 +54,7 @@ else
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({node: {name: name, command: command, inputs: inputs, outputs: outputs}})
+      body: JSON.stringify({node: {name: name, type: 'custom', command: command, inputs: inputs, outputs: outputs}})
     }).then(data => data.json()).then(data => {
       updateTable();
       modal.style.display = 'none';
@@ -78,7 +78,7 @@ else
   nameInput.addEventListener('input', function(e) {
     let name = e.target.value
     if (name === '') name = 'New node'
-    node.title = name
+    node.name = name
     draw()
   })
 

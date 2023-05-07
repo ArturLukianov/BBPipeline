@@ -14,6 +14,7 @@ function escapeHtml(unsafe)
   const saveScopeButton = document.getElementById('saveScope');
   const runScanButton = document.getElementById('runScan')
   const status = document.getElementById('status')
+  const scopeEdit = document.getElementById('scopeEdit')
 
   let nodes = [];
   let contextNode = null;
@@ -48,6 +49,25 @@ function escapeHtml(unsafe)
 
     draw();
   })
+
+  fetch('/api/scan/scope').then(data => data.json()).then(data => {
+    scopeEdit.value = data.scope.join('\n')
+  })
+
+  saveScopeButton.addEventListener('click', function(e) {
+    let scopeData = scopeEdit.value.split('\n').filter(line => line != "")
+
+    fetch('/api/scan/scope', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({scope: scopeData})
+    }).then(data => data.json()).then(data => {
+    })
+  })
+
 
   // resize the canvas to fill browser window dynamically
   window.addEventListener('resize', resizeCanvas, false);

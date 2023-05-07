@@ -56,7 +56,7 @@ def profile():
 
 @app.route('/api/scan/run')
 def run_scan():
-    profile.run()
+    loaded_profile.run()
     return jsonify({'status': 'started'})
 
 @app.route('/api/scan/status')
@@ -66,9 +66,9 @@ def status_scan():
 @app.route('/api/scan/scope', methods=['POST', 'GET'])
 def scan_scope():
     if request.method == 'GET':
-        return jsonify({'scope': profile.get_scope()})
+        return jsonify({'scope': loaded_profile.get_scope()})
     else:
         scope = request.json.get('scope')
         if not scope: return jsonify({'result': 'no scope given'})
-        profile.set_scope(scope)
+        loaded_profile.set_scope(scope)
         return jsonify({'result': 'ok'})

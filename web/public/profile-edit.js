@@ -79,7 +79,7 @@ function escapeHtml(unsafe)
       row.addEventListener('click', function() {
         nodes.push(new Node(canvas.width / 2 - 150, canvas.height / 2 - 150,
                             node['type'],
-                            node['name'], node['inputs'], node['outputs']))
+                            node['name'], node['inputs'], node['outputs'], null, node['command']))
         modal.style.display = 'none';
         draw();
       })

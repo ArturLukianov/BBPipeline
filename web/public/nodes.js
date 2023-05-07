@@ -151,12 +151,12 @@ class Socket {
 
 /* Pipeline node */
 class Node {
-  constructor(x, y, type, name, inputs = null, outputs = null, command = null, id = null) {
+  constructor(x, y, type, name, inputs = null, outputs = null, id = null, command = null) {
     this.id = id ? id : uuidv4();
     this.x = x;
     this.y = y;
-    this.type = type
-    this.command = command
+    this.type = type;
+    this.command = command;
     this.staleX = x;
     this.staleY = y;
     this.name = name;
