@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import threading
 from flask import Flask, send_from_directory, redirect, jsonify, request
 
 sys.path.append('..')
@@ -54,14 +55,24 @@ def profile():
         return jsonify({'result': 'ok'})
 
 
+def run_profile():
+    global loaded_profile
+    loaded_profile.run()
+
 @app.route('/api/scan/run')
 def run_scan():
-    loaded_profile.run()
-    return jsonify({'status': 'started'})
+    threading.Thread(target=run_profile).start()
+    return jsonify({'status': loaded_profile.status})
 
 @app.route('/api/scan/status')
 def status_scan():
-    return jsonify({'status': 'not running'})
+    return jsonify({'status': loaded_profile.status})
+
+@app.route('/api/scan/result')
+def scan_result():
+    return jsonify({'result': loaded_profile.result})
+
+
 
 @app.route('/api/scan/scope', methods=['POST', 'GET'])
 def scan_scope():

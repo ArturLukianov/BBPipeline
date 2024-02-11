@@ -3,10 +3,9 @@
         <link href="style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
-         body,html{
+         html,body {
              overflow: hidden;
          }
-
         </style>
     </head>
     <body>
@@ -22,11 +21,12 @@
             <button class="tablinks active" onclick="openTab(event, 'scan')">Scan</button>
             <button class="tablinks" onclick="openTab(event, 'scope')">Scope</button>
             <button class="tablinks" onclick="openTab(event, 'profile')">Profile</button>
+            <button class="tablinks" onclick="openTab(event, 'result')">Result</button>
         </div>
 
         <!-- Tab content -->
         <div id="scan" class="tabcontent" style="display: block">
-            <h3 id="status">Status: not running</h3>
+            <h3 id="status">Status: ?</h3>
             <button style="margin-top: 20px;" class="green-button" id="runScan">Run</button>
         </div>
 
@@ -36,10 +36,17 @@
             <button style="margin-top: 20px;" id="saveScope">Save</button>
         </div>
 
-        <div id="profile" class="profile-preview tabcontent">
+        <div id="profile" class="profile-preview tabcontent no-scroll">
             <canvas id="profile-preview-canvas">
             </canvas>
         </div>
+
+        <div id="result" class="tabcontent">
+            <h3>Result:</h3>
+            <div id="resultContainer"></div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script src="nodes.js"></script>
         <script src="tabs.js"></script>
         <script src="scans.js"></script>

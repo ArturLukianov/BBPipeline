@@ -14,7 +14,10 @@ function escapeHtml(unsafe)
   const saveScopeButton = document.getElementById('saveScope');
   const runScanButton = document.getElementById('runScan')
   const status = document.getElementById('status')
+  const resultContainer = document.getElementById('resultContainer')
   const scopeEdit = document.getElementById('scopeEdit')
+
+  let resultText = null;
 
   let nodes = [];
   let contextNode = null;
@@ -53,6 +56,20 @@ function escapeHtml(unsafe)
   fetch('/api/scan/scope').then(data => data.json()).then(data => {
     scopeEdit.value = data.scope.join('\n')
   })
+
+  setInterval(() => fetch('/api/scan/status').then(data => data.json()).then(data => {
+    status.innerHTML = 'Status: ' + data.status
+  }), 1000);
+
+  setInterval(() => fetch('/api/scan/result').then(data => data.json()).then(data => {
+    if (data.result !== null) {
+      if (data.result !== resultText) {
+        resultText = data.result;
+        resultContainer.innerHTML = marked.parse(data.result)
+      }
+    }
+  }), 1000);
+
 
   saveScopeButton.addEventListener('click', function(e) {
     let scopeData = scopeEdit.value.split('\n').filter(line => line != "")
@@ -138,7 +155,7 @@ function escapeHtml(unsafe)
 
   runScanButton.addEventListener('click', function(e) {
     fetch('/api/scan/run').then(data => data.json()).then(data => {
-      status.innerHTML = 'Status: runnnig'
+      status.innerHTML = 'Status: ' + data.status
     })
   })
 })();

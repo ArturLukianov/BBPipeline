@@ -88,17 +88,25 @@ class CustomNode(Node):
 
     def run(self):
         prepared_command = self.command
+
+        # Prepare input
         for input_name in self.inputSockets:
             if self.inputSockets[input_name].hasData():
                 prepared_command = prepared_command.replace(f'<{input_name}>', next(self.inputSockets[input_name].fetch()))
             else: return []
 
+        # Prepare out files
         output_files = {}
         for output_name in self.outputSockets:
             output_filename = random_output_name(output_name)
             output_files[output_name] = output_filename
             prepared_command = prepared_command.replace(f'<:{output_name}>', output_filename)
 
-        print(prepared_command)
-        return []
-        # subprocess.check_output(self.command)
+        subprocess.run(prepared_command, shell=True)
+
+        next_nodes = []
+        for output_name in self.outputSockets:
+            self.outputSockets[output_name].commit(output_files[output_name])
+            next_nodes += self.outputSockets[output_name].get_next_nodes()
+
+        return next_nodes

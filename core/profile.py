@@ -2,6 +2,7 @@
 
 from .node import Node
 from .nodes.scope import Scope
+from .nodes.result import Result
 from queue import Queue
 
 class Profile:
@@ -9,6 +10,8 @@ class Profile:
         self.nodes = nodes
         self.scope = []
         self.current_node = None
+        self.status = 'not running'
+        self.result = None
 
     def to_dict(self):
         return {
@@ -16,6 +19,7 @@ class Profile:
         }
 
     def run(self):
+        self.status = 'running'
         scope_node = None
         for node in self.nodes:
             if node.TYPE == Scope.TYPE:
@@ -31,6 +35,11 @@ class Profile:
             next_nodes = self.current_node.run()
             for node in next_nodes:
                 node_queue.put(node)
+        self.result = None
+        for node in self.nodes:
+            if node.TYPE == Result.TYPE:
+                self.result = node.result
+        self.status = 'finished'
 
     def wire_connections(self):
         for node in self.nodes:

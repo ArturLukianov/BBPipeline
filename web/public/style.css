@@ -302,3 +302,9 @@ textarea {
 .green-button {
   background-color: #049a5d;
 }
+
+
+#resultContainer {
+  overflow-y: scroll;
+  height: 100%;
+}
